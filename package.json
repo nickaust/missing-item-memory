@@ -11,5 +11,14 @@
   "description": "",
   "dependencies": {
     "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
+
+  "scripts": {
+  "start-dev": "nodemon p5-server.js",
+  "start-prod": "node p5-server.js"
 }
+}
+
