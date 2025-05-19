@@ -1,6 +1,6 @@
 // p5-server.js
 const express = require('express');
-const { startGame, makeGuess } = require('./p5-game'); // Import game functions
+const { startGame, makeGuess } = require('./p5-game'); // Single import line
 const app = express();
 const port = 4000;
 

@@ -5,7 +5,11 @@ const game = new MemoryGame();
 
 function startGame() {
   game.startNewGame();
-  return game.getGameState();
+  const gameState = game.getGameState();
+  return {
+    ...gameState,
+    fullSet: game.getFullSet()
+  };
 }
 
 function makeGuess(emoji) {
@@ -13,6 +17,7 @@ function makeGuess(emoji) {
   return {
     correct: result,
     gameState: game.getGameState(),
+    fullSet: game.getFullSet()
   };
 }
 

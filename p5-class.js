@@ -11,16 +11,32 @@ class MemoryGame {
   startNewGame() {
     this.level = 1;
     this.score = 0;
-    this.startNewRound();
+    this.prepareRound();
   }
 
-  startNewRound() {
-    this.level++;
-    const cardCount =
-      this.level === 1 ? 5 : this.level === 2 ? 7 : 10 + (this.level - 3) * 3;
+  prepareRound() {
+    let cardCount;
+    if (this.level === 1) {
+      cardCount = 5;
+    } else if (this.level === 2) {
+      cardCount = 7;
+    } else {
+      cardCount = 10 + (this.level - 3) * 3;
+    }
     this.cards = this.generateCards(cardCount);
     this.removedCard = this.removeOneCard();
     this.options = this.generateOptions();
+  }
+
+  checkGuess(emoji) {
+    if (emoji === this.removedCard) {
+      this.score++;
+      this.level++; // Increment level only after correct guess
+      this.prepareRound(); // Prepare next round
+      return true;
+    } else {
+      return false;
+    }
   }
 
   generateCards(count) {
@@ -87,23 +103,19 @@ class MemoryGame {
     return options.sort(() => 0.5 - Math.random());
   }
 
-  checkGuess(emoji) {
-    if (emoji === this.removedCard) {
-      this.score++;
-      this.startNewRound();
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   getGameState() {
     return {
       level: this.level,
       score: this.score,
       cards: this.cards,
       options: this.options,
+      removedCard: this.removedCard,
     };
+  }
+
+  getFullSet() {
+    // Return the full set of emojis before one is removed
+    return [...this.cards, this.removedCard].sort();
   }
 }
 
